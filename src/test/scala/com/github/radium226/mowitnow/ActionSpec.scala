@@ -9,7 +9,7 @@ class ActionSpec extends BaseSpec {
 
     scenario("The mower should stay in the lawn") {
       Given("an initial state in the edge of the lawn area")
-      val initialState = State(Position(1, 1), Orientation.North())
+      val initialState = State(Position(0, 0), Orientation.North())
       val size = Size(1, 1)
 
       When("the mower mow")
@@ -28,7 +28,7 @@ class ActionSpec extends BaseSpec {
   feature("The initial state of the mower should be consitent") {
     scenario("The mower can't have an initial state outside of the lawn") {
       Given("an initial state outside of the lawn area")
-      val initialState = State(Position(2, 2), Orientation.North())
+      val initialState = State(Position(1, 1), Orientation.North())
       val size = Size(1, 1)
 
       When("the mower mow")
