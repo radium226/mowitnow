@@ -10,6 +10,7 @@ sealed trait Action {
 }
 
 object Action {
+
   case class MoveForward() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = {
