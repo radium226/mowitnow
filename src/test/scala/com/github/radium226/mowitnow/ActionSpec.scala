@@ -5,7 +5,7 @@ import scala.util.{ Success, Failure, Try }
 
 class ActionSpec extends BaseSpec {
 
-  feature("The mower can move forward") {
+  feature("The mower can move forward and turn") {
 
     scenario("The mower should stay in the lawn") {
       Given("an initial state in the edge of the lawn area")
@@ -22,10 +22,6 @@ class ActionSpec extends BaseSpec {
       And("be equal to the initial state")
       initialState shouldEqual finalState.get
     }
-
-  }
-
-  feature("The mower can turn") {
 
     scenario("The mower be in the same state if it does a complete clockwise turn") {
       Given("an initial state")
@@ -50,6 +46,22 @@ class ActionSpec extends BaseSpec {
 
       When("the mower mow by turning right 4 times")
       val actions = (1 to 4).map(_ => Action.TurnRight())
+      val finalState = Mower(actions).mow(initialState)(size)
+
+      Then("the final state should succeed")
+      finalState shouldBe a [Success[_]]
+
+      And("be equal to the initial state")
+      initialState shouldEqual finalState.get
+    }
+
+    scenario("The mower move forward and turn left successively in order to go back were it started") {
+      Given("an initial state and a large lawn")
+      val initialState = State(Position(10, 10), Orientation.North())
+      val size = Size(100, 100)
+
+      When("the action are moving forward and turning left successively")
+      val actions = (1 to 4).map(_ => Seq(Action.MoveForward(), Action.TurnLeft())).flatten
       val finalState = Mower(actions).mow(initialState)(size)
 
       Then("the final state should succeed")
@@ -85,7 +97,7 @@ class ActionSpec extends BaseSpec {
       val finalState = Mower(actions).mow(initialState)(size)
 
       Then("the final state should fail")
-      finalState shouldBe a [Failure[State]]
+      finalState shouldBe a [Failure[_]]
     }
   }
 
