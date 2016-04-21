@@ -43,7 +43,7 @@ object Action {
   case class CheckState() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = (state, size) match {
-      case (State(Position(x, y), _), Size(width, height)) if (0.until(width - 1).contains(x) && 0.until(height - 1).contains(y)) => Success(state)
+      case (State(Position(x, y), _), Size(width, height)) if (0.until(width).contains(x) && 0.until(height).contains(y)) => Success(state)
       case _ => Failure(new Exception("Initial state seems to be wrong! "))
     }
 
