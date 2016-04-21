@@ -44,7 +44,16 @@ object Action {
 
     def apply(state: State)(size: Size): Try[State] = (state, size) match {
       case (State(Position(x, y), _), Size(width, height)) if (0.until(width).contains(x) && 0.until(height).contains(y)) => Success(state)
-      case _ => Failure(new Exception("Initial state seems to be wrong! "))
+      case _ => Failure(new Exception("Initial state seems to be wrong"))
+    }
+
+  }
+
+  case class CheckSize() extends Action {
+
+    def apply(state: State)(size: Size): Try[State]  = size match {
+      case Size(height, width) if (height > 0 && width > 0) => Success(state)
+      case _ => Failure(new Exception("The lawn area size seems to be wrong"))
     }
 
   }
