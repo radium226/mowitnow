@@ -5,7 +5,7 @@ import scala.util.{ Try, Success, Failure }
 case class Mower(actions: Seq[Action]) {
 
   def mow(initialState: State)(implicit size: Size): Try[State] = {
-    (Action.CheckInitialState() +: actions).foldLeft(Try(initialState))({
+    (Action.CheckState() +: actions).foldLeft(Try(initialState))({
       case (Success(state), action) => action(state)(size)
       case (failure, _) => failure
     })
