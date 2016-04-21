@@ -21,25 +21,18 @@ object Mow {
 
     val finalStates: Try[Seq[Try[State]]] = lines match {
       case Seq(sizeLine, otherLines @ _ *) => Success({
-        println(s"otherLines=$otherLines")
-        otherLines.sliding(2, 2).toSeq.map({ twoLines => {
-          println(s"twoLines=$twoLines")
-          twoLines match {
-            case Seq(initialStateLine, actionsLine) => {
-              println(s"initialStateLine=$initialStateLine")
-              for {
-                size <- SizeParser.parse(sizeLine)
-                initialState <- StateParser.parse(initialStateLine)
-                actions <- ActionsParser.parse(actionsLine)
-                finalState <- actions.foldLeft(Try(initialState))({
-                  case (Success(state), action) => action(state)(size)
-                  case _ => Failure(new Exception("Unable to continue :("))
-                })
-              } yield finalState
-            }
-            case _ => Failure(new Exception("Error while parsing! "))
+        otherLines.sliding(2, 2).toSeq.map({
+          case Seq(initialStateLine, actionsLine) => {
+            println(s"initialStateLine=$initialStateLine")
+            for {
+              size <- SizeParser.parse(sizeLine)
+              initialState <- StateParser.parse(initialStateLine)
+              actions <- ActionsParser.parse(actionsLine)
+              finalState <- Mower(actions).mow(initialState)(size)
+            } yield finalState
           }
-        }})
+          case _ => Failure(new Exception("Error while parsing! "))
+        })
       })
       case _ => Failure(new Exception("Incoherent line count! "))
     }

@@ -16,10 +16,10 @@ object Action {
       val Size(width, height) = size
       val State(Position(x, y), orientation) = state
       val position = orientation match {
-        case NorthOrientation() => Position(x, min(y + 1, height))
-        case EastOrientation() => Position(min(x + 1, width), y)
-        case WestOrientation() => Position(max(x - 1, 0), y)
-        case SouthOrientation() => Position(x, max(y - 1, 0))
+        case Orientation.North() => Position(x, min(y + 1, height))
+        case Orientation.East() => Position(min(x + 1, width), y)
+        case Orientation.West() => Position(max(x - 1, 0), y)
+        case Orientation.South() => Position(x, max(y - 1, 0))
         case _ => Position(x, y)
       }
       Success(State(position, orientation))

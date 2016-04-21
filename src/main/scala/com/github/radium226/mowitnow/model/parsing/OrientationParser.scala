@@ -7,10 +7,10 @@ import scala.util.{ Try, Success, Failure }
 object OrientationParser extends Parser[Orientation] {
 
   val OrientationByLetter = Map(
-    "N" -> NorthOrientation(),
-    "S" -> SouthOrientation(),
-    "E" -> EastOrientation(),
-    "W" -> WestOrientation()
+    "N" -> Orientation.North(),
+    "S" -> Orientation.South(),
+    "E" -> Orientation.East(),
+    "W" -> Orientation.West()
   )
 
   def parse(letter: String): Try[Orientation] = {

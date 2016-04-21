@@ -1,0 +1,10 @@
+language: scala
+scala:
+- 2.11.8
+script:
+- sbt clean coverage test
+after_success:
+- sbt coverageReport coveralls
+env:
+  global:
+    secure: qQz/7+6ytFzJ8VlUeigvjnHpzmk6imP0mi4ouKtim4IChQSEQi/lgJHv8Cd45JSRW+/deh/gGAzS2HTpWIXpUZqLuuEwt07ungYInCRbVzTw7fb7LlLh5zePcOi5kvIsU8n3GzP7OB0lghhPgt3yqGj77YuAIzFfS79XLopLDzJD0r2MBbjoADvPM1k7nG2oWCbuPUyQXPGQJfYMQ5wysCdO+50zT2Hu83iGVjt5jFErUuMNDDeJiiQMpgVAQOoVTUcubT2VIMAmqjBAk9rQAJOcB/1TOvBfA0170vq9q6TUWFxF4Og0wW61NCMhztMijwOicUfOHPnCZgMkp/VodITZPbevfglOERsnAWg+1a/54qnYUaWM5rO3BIlZujqRSd3Ek4qc+giEk1ELnWlf+KCLJmViIK60/tGTW+xD8mwP+k3CoHHGd7W3cSgOZOEkkpIC/Ahv89wMvp+Fv1BOzQfI6slDXIrmwyMEnYw5Mw/eR2FtrftPo7itTtj+WQ5vepQbTvFxhrc2DIP4rnHpyXy7TYfWreJaXJIFd+nfckZb3vnt6mU9O8z4YNo4chMl3+C+kc0cNftbUDkDhH7gFFNnze8WZh6z2Wg+cmaFEm60UPuoYbehi/vWy1bCeheWpmeyBgHqULF2hSOk1ySCjM7Qm9scAAPltEV11ybNjQk=
