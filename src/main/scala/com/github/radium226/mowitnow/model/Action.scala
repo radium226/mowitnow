@@ -21,7 +21,6 @@ object Action {
         case Orientation.East() => Position(min(x + 1, width - 1), y)
         case Orientation.West() => Position(max(x - 1, 0), y)
         case Orientation.South() => Position(x, max(y - 1, 0))
-        case _ => Position(x, y)
       }
       Success(State(position, orientation))
     }

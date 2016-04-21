@@ -3,7 +3,7 @@ package com.github.radium226.mowitnow
 import com.github.radium226.mowitnow.model._
 import scala.util.{ Success, Failure, Try }
 
-class ActionSpec extends BaseSpec {
+class MowerSpec extends BaseSpec {
 
   feature("The mower can move forward and turn") {
 
