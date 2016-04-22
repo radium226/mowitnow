@@ -8,7 +8,7 @@ import scala.util.{Failure, Success, Try}
 
 object Readers {
 
-  implicit val action: Reader[Action] = new MappingBasedReader[Action] {
+  implicit val actionReader: Reader[Action] = new MappingBasedReader[Action] {
 
     val Mapping = Map(
       'A' -> MoveForward(),
@@ -18,7 +18,7 @@ object Readers {
 
   }
 
-  implicit val actions: Reader[Seq[Action]] = new SingleLineReader[Seq[Action]] {
+  implicit val actionsReader: Reader[Seq[Action]] = new SingleLineReader[Seq[Action]] {
 
     override def read(line: String): Try[Seq[Action]] = {
       line.sliding(1).map { IO.read[Action](_) }.foldLeft[Try[Seq[Action]]](Success(Seq())) { (tryActions, tryAction) =>
@@ -31,7 +31,7 @@ object Readers {
 
   }
 
-  implicit val orientation: Reader[Orientation] = new MappingBasedReader[Orientation] {
+  implicit val orientationReader: Reader[Orientation] = new MappingBasedReader[Orientation] {
 
     override val Mapping = Map(
       'N' -> Orientation.North(),
@@ -42,19 +42,19 @@ object Readers {
 
   }
 
-  implicit val size: Reader[Size] = new SingleLineReader[Size] {
+  implicit val sizeReader: Reader[Size] = new SingleLineReader[Size] {
 
     val Pattern: Regex  = "([0-9]+) ([0-9]+)".r
 
     override def read(line: String): Try[Size] = line match {
-      case Pattern(width, height) => Success(Size(width.toInt, height.toInt))
+      case Pattern(width, height) => Success(Size(width.toInt + 1, height.toInt + 1))
       case _ => Failure(new Exception("Unable to parse size"))
     }
 
   }
 
 
-  implicit val position: Reader[Position] = new SingleLineReader[Position] {
+  implicit val positionReader: Reader[Position] = new SingleLineReader[Position] {
 
     val Pattern: Regex  = "([0-9]+) ([0-9]+)".r
 
@@ -65,7 +65,7 @@ object Readers {
 
   }
 
-  implicit val state: Reader[State] = new SingleLineReader[State] {
+  implicit val stateReader: Reader[State] = new SingleLineReader[State] {
 
     val Pattern: Regex = "([0-9 ]+) ([A-Z])".r
 
@@ -79,7 +79,7 @@ object Readers {
 
   }
 
-  implicit val program: Reader[Program] = new Reader[Program] {
+  implicit val programReader: Reader[Program] = new Reader[Program] {
 
     def read(lines: Seq[String]): Try[Program] = lines match {
       case Seq(firstLine, otherLines @ _ *) => for {
@@ -91,7 +91,7 @@ object Readers {
 
   }
 
-  implicit val programs: Reader[Seq[Program]] = new Reader[Seq[Program]] {
+  implicit val programsReader: Reader[Seq[Program]] = new Reader[Seq[Program]] {
 
     override def read(lines: Seq[String]): Try[Seq[Program]] = {
       lines.sliding(2, 2).map { IO.read[Program](_) }.foldLeft[Try[Seq[Program]]](Success(Seq())) { (tryPrograms, tryProgram) =>
@@ -104,7 +104,7 @@ object Readers {
 
   }
 
-  implicit val sizeAndPrograms: Reader[(Size, Seq[Program])] = new Reader[(Size, Seq[Program])] {
+  implicit val sizeAndProgramsReader: Reader[(Size, Seq[Program])] = new Reader[(Size, Seq[Program])] {
 
     def read(lines: Seq[String]): Try[(Size, Seq[Program])] = lines match {
       case Seq(firstLine, otherLines @ _ *) => for {
