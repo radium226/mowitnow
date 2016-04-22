@@ -38,7 +38,8 @@ class ReadSpec extends BaseSpec {
     scenario("Size and programs can be read") {
       Given("some lines")
       val lines =
-        """1 2 N
+        """1 1
+          |1 2 N
           |AGD
           |3 4 S
           |A
