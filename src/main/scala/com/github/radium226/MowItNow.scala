@@ -11,6 +11,11 @@ import scopt.OptionParser._
 
 object MowItNow {
 
+  val Success = 0
+  val Failure = 1
+
+  def exit(status: Int): Unit = System.exit(status)
+
   case class Config(inputStream: InputStream, outputStream: OutputStream)
 
   def parse(arguments: Array[String]): Option[Config] = {
@@ -34,11 +39,27 @@ object MowItNow {
 
   def main(arguments: Array[String]): Unit = {
     parse(arguments) match {
-      case Some(config) =>
-        println("Yay!")
+      case Some(config) => {
+        val tryOutput = for {
+          sizeAndPrograms <- IO.read[(Size, Seq[Program])](config.inputStream)
+          finalStates <- Mower.mow(sizeAndPrograms)
+          output <- IO.write(finalStates)
+        } yield output
 
-      case None =>
-        println("Wasted...")
+        tryOutput match {
+          case Success(output) => {
+            val printer = new PrintStream(config.outputStream)
+            output.lines.foreach(printer.println(_))
+            printer.close()
+            exit(Success)
+          }
+          case Failure(exception) => {
+            exception.printStackTrace(System.err)
+            exit(Failure)
+          }
+        }
+      }
+      case None => exit(Failure)
     }
 
   }
