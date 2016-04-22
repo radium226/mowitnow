@@ -1,7 +1,6 @@
 package com.github.radium226.mowitnow
 
-import com.github.radium226.mowitnow.model._
-import scala.util.{ Success, Failure, Try }
+import scala.util.{ Success, Failure }
 
 class MowerSpec extends BaseSpec {
 

@@ -1,7 +1,8 @@
-package com.github.radium226.mowitnow.model
+package com.github.radium226.mowitnow
 
-import Math.{ min, max }
-import scala.util.{ Try, Success, Failure }
+import java.lang.Math.{max, min}
+
+import scala.util.{Failure, Success, Try}
 
 sealed trait Action {
 

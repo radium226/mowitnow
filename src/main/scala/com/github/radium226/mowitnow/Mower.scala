@@ -1,6 +1,6 @@
-package com.github.radium226.mowitnow.model
+package com.github.radium226.mowitnow
 
-import scala.util.{ Try, Success, Failure }
+import scala.util.{Success, Try}
 
 case class Mower(actions: Seq[Action]) {
 

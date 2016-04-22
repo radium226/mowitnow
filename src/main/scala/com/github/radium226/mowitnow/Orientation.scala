@@ -1,4 +1,4 @@
-package com.github.radium226.mowitnow.model
+package com.github.radium226.mowitnow
 
 sealed trait Orientation {
 

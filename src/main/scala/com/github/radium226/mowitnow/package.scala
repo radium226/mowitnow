@@ -1,14 +1,13 @@
-package com.github.radium226.mowitnow
+package com.github.radium226
 
-/**
-  * Created by adrien on 4/20/16.
-  */
-package object model {
+package object mowitnow {
 
   case class Position(x: Int, y: Int)
 
   case class Size(width: Int, height: Int)
 
   case class State(position: Position, orientation: Orientation)
+
+  case class Program(initialState: State, actions: Seq[Action])
 
 }
