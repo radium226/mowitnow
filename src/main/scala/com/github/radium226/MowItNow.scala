@@ -11,12 +11,12 @@ import scopt.OptionParser._
 
 object MowItNow {
 
-  val Success = 0
-  val Failure = 1
+  val Good = 0
+  val Bad = 1
 
   def exit(status: Int): Unit = System.exit(status)
 
-  case class Config(inputStream: InputStream, outputStream: OutputStream)
+  case class Config(inputStream: InputStream, outputStream: OutputStream, debug: Boolean)
 
   def parse(arguments: Array[String]): Option[Config] = {
     new OptionParser[Config]("MowItNow") {
@@ -27,6 +27,11 @@ object MowItNow {
         }
         config.copy(outputStream = outputStream)
       } optional()
+
+      opt[Unit]('d', "debug") action { (_, config) =>
+        config.copy(debug=true)
+      } hidden()
+
       arg[String]("input") action { (input, config) =>
         val inputStream = input match {
           case "-" => System.in
@@ -34,7 +39,7 @@ object MowItNow {
         }
         config.copy(inputStream = inputStream)
       } optional()
-    }.parse(arguments, Config(inputStream = System.in, outputStream = System.out))
+    }.parse(arguments, Config(inputStream = System.in, outputStream = System.out, debug=false))
   }
 
   def main(arguments: Array[String]): Unit = {
@@ -43,7 +48,7 @@ object MowItNow {
         val tryOutput = for {
           sizeAndPrograms <- IO.read[(Size, Seq[Program])](config.inputStream)
           finalStates <- Mower.mow(sizeAndPrograms)
-          output <- IO.write(finalStates)
+          output <- IO.write[Seq[State]](finalStates)
         } yield output
 
         tryOutput match {
@@ -51,15 +56,15 @@ object MowItNow {
             val printer = new PrintStream(config.outputStream)
             output.lines.foreach(printer.println(_))
             printer.close()
-            exit(Success)
+            exit(Good)
           }
           case Failure(exception) => {
-            exception.printStackTrace(System.err)
-            exit(Failure)
+            if (config.debug) exception.printStackTrace(System.err) else System.err.println(exception.getMessage)
+            exit(Bad)
           }
         }
       }
-      case None => exit(Failure)
+      case None => exit(Bad)
     }
 
   }
