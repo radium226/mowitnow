@@ -1,7 +1,7 @@
 package com.github.radium226.mowitnow
 
 import com.github.radium226.io._
-import Readers._
+import com.github.radium226.mowitnow.io._
 import Action._
 import Orientation._
 
@@ -58,7 +58,8 @@ class ReadSpec extends BaseSpec {
     scenario("Everything should fail even if some lines are valid in text") {
       Given("some lines")
       val lines =
-        """1 2 N
+        """1 3
+          |1 2 N
           |AGD
           |3 4 S
           |$

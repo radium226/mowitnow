@@ -13,7 +13,7 @@ class MowerSpec extends BaseSpec {
 
       When("the mower mow")
       val actions = Seq(Action.MoveForward())
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should succeed")
       finalState shouldBe a [Success[_]]
@@ -29,7 +29,7 @@ class MowerSpec extends BaseSpec {
 
       When("the mower mow by turining left 4 times")
       val actions = (1 to 4).map(_ => Action.TurnLeft())
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should succeed")
       finalState shouldBe a [Success[_]]
@@ -45,7 +45,7 @@ class MowerSpec extends BaseSpec {
 
       When("the mower mow by turning right 4 times")
       val actions = (1 to 4).map(_ => Action.TurnRight())
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should succeed")
       finalState shouldBe a [Success[_]]
@@ -61,7 +61,7 @@ class MowerSpec extends BaseSpec {
 
       When("the action are moving forward and turning left successively")
       val actions = (1 to 4).map(_ => Seq(Action.MoveForward(), Action.TurnLeft())).flatten
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should succeed")
       finalState shouldBe a [Success[_]]
@@ -80,7 +80,7 @@ class MowerSpec extends BaseSpec {
 
       When("the mower does nothing")
       val actions = Seq()
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should fail")
       finalState shouldBe a [Failure[_]]
@@ -93,7 +93,7 @@ class MowerSpec extends BaseSpec {
 
       When("the mower does nothing")
       val actions = Seq()
-      val finalState = Mower(actions).mow(initialState)(size)
+      val finalState = new Mower(actions).mow(initialState)(size)
 
       Then("the final state should fail")
       finalState shouldBe a [Failure[_]]
