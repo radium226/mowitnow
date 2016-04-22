@@ -39,7 +39,7 @@ package object io {
         for {
           line <- tryLine
           seq <- tryChar
-          char <- seq.headOption.toTry(new Exception("Wrong state, here... "))
+          char <- seq.lines.headOption.toTry(new Exception("Wrong state, here... "))
         } yield line + char
       }
     }
@@ -99,21 +99,21 @@ package object io {
     override def writeLine(state: State): Try[String] = for {
       position <- IO.write[Position](state.position)
       orientation <- IO.write[Orientation](state.orientation)
-    } yield s"${position.head} ${orientation.head}"
+    } yield s"${position.lines.head} ${orientation.lines.head}"
 
   }
 
   implicit val statesIO: IO[Seq[State]] = new IO[Seq[State]] {
 
-    override def read(lines: Seq[String]): Try[Seq[State]] = ???
+    override def readLines(lines: Seq[String]): Try[Seq[State]] = ???
 
-    override def write(states: Seq[State]): Try[Seq[String]] = states.map(IO.write(_)).toTrySeq()
+    override def writeLines(states: Seq[State]): Try[Seq[String]] = states.map(IO.write(_).map(_.lines)).toTrySeq()
 
   }
 
   implicit val programIO: IO[Program] = new IO[Program] {
 
-    def read(lines: Seq[String]): Try[Program] = lines match {
+    def readLines(lines: Seq[String]): Try[Program] = lines match {
       case Seq(firstLine, otherLines @ _ *) => for {
         initialState <- IO.read[State](firstLine)
         actions <- IO.read[Seq[Action]](otherLines)
@@ -121,16 +121,16 @@ package object io {
       case _ => Failure(new Exception("Unable to parse program"))
     }
 
-    def write(program: Program): Try[Seq[String]] = for {
-      initialStateLines <- IO.write[State](program.initialState)
-      actionsLines <- IO.write[Seq[Action]](program.actions)
-    } yield initialStateLines ++ actionsLines
+    def writeLines(program: Program): Try[Seq[String]] = for {
+      initialStateOutput <- IO.write[State](program.initialState)
+      actionsOutput <- IO.write[Seq[Action]](program.actions)
+    } yield initialStateOutput.lines ++ actionsOutput.lines
 
   }
 
   implicit val programsIO: IO[Seq[Program]] = new IO[Seq[Program]] {
 
-    override def read(lines: Seq[String]): Try[Seq[Program]] = {
+    override def readLines(lines: Seq[String]): Try[Seq[Program]] = {
       lines.sliding(2, 2).map(IO.read[Program](_)).foldLeft[Try[Seq[Program]]](Success(Seq())) { (tryPrograms, tryProgram) =>
         for {
           programs <- tryPrograms
@@ -139,24 +139,24 @@ package object io {
       }
     }
 
-    override def write(programs: Seq[Program]): Try[Seq[String]] = programs.map(IO.write[Program](_)).toTrySeq()
+    override def writeLines(programs: Seq[Program]): Try[Seq[String]] = programs.map(IO.write[Program](_).map(_.lines)).toTrySeq()
   }
 
   implicit val sizeAndProgramsIO: IO[(Size, Seq[Program])] = new IO[(Size, Seq[Program])] {
 
-    def read(lines: Seq[String]): Try[(Size, Seq[Program])] = lines match {
+    def readLines(lines: Seq[String]): Try[(Size, Seq[Program])] = lines match {
       case Seq(firstLine, otherLines@_ *) => for {
         size <- IO.read[Size](firstLine)
         programs <- IO.read[Seq[Program]](otherLines)
       } yield (size, programs)
     }
 
-    def write(sizeAndPrograms: (Size, Seq[Program])): Try[Seq[String]] = {
+    def writeLines(sizeAndPrograms: (Size, Seq[Program])): Try[Seq[String]] = {
       val (size, programs) = sizeAndPrograms
       for {
-        sizeLines <- IO.write[Size](size)
-        programsLines <- IO.write[Seq[Program]](programs)
-      } yield sizeLines ++ programsLines
+        sizeOutput <- IO.write[Size](size)
+        programsOutput <- IO.write[Seq[Program]](programs)
+      } yield sizeOutput.lines ++ programsOutput.lines
     }
   }
 }

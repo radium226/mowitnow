@@ -1,32 +1,45 @@
 package com.github.radium226
 
 import io._
-
 import mowitnow._
 import mowitnow.io._
+import java.io._
 
 import scala.util.{Failure, Success, Try}
+import scopt.OptionParser
+import scopt.OptionParser._
 
 object MowItNow {
 
+  case class Config(inputStream: InputStream, outputStream: OutputStream)
+
+  def parse(arguments: Array[String]): Option[Config] = {
+    new OptionParser[Config]("MowItNow") {
+      opt[String]('o', "output") action { (output, config) =>
+        val outputStream = output match {
+          case "-" => System.out
+          case path => new FileOutputStream(new File(path))
+        }
+        config.copy(outputStream = outputStream)
+      } optional()
+      arg[String]("input") action { (input, config) =>
+        val inputStream = input match {
+          case "-" => System.in
+          case path => new FileInputStream(new File(path))
+        }
+        config.copy(inputStream = inputStream)
+      } optional()
+    }.parse(arguments, Config(inputStream = System.in, outputStream = System.out))
+  }
+
   def main(arguments: Array[String]): Unit = {
-    val lines =
-      """
-        |5 5
-        |1 2 N
-        |GAGAGAGAA
-        |3 3 E
-        |AADAADADDA
-      """.stripMargin.trim().split("\n").map(_.trim).toSeq
+    parse(arguments) match {
+      case Some(config) =>
+        println("Yay!")
 
-    println(lines)
-
-    val finalStates = for {
-      sizeAndPrograms <- IO.read[(Size, Seq[Program])](lines)
-      finalStates <- Mower.mow(sizeAndPrograms)
-    } yield finalStates
-
-    print(finalStates)
+      case None =>
+        println("Wasted...")
+    }
 
   }
 

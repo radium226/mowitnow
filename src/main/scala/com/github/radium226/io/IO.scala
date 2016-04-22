@@ -5,16 +5,15 @@ import com.github.radium226.util.Implicits._
 
 trait IO[T] {
 
-  def read(lines: Seq[String]): Try[T]
+  def readLines(lines: Seq[String]): Try[T]
 
-  def write(t: T): Try[Seq[String]]
+  def writeLines(t: T): Try[Seq[String]]
 
 }
 
-
 trait SingleLineIO[T] extends IO[T] {
 
-  def read(lines: Seq[String]): Try[T] = {
+  def readLines(lines: Seq[String]): Try[T] = {
     val t: Option[T] = for {
       firstLine <- lines.headOption
       t <- readLine(firstLine).toOption
@@ -24,7 +23,7 @@ trait SingleLineIO[T] extends IO[T] {
 
   def readLine(line: String): Try[T]
 
-  def write(t: T): Try[Seq[String]] = writeLine(t).map(Seq(_))
+  def writeLines(t: T): Try[Seq[String]] = writeLine(t).map(Seq(_))
 
   def writeLine(t: T): Try[String]
 
@@ -60,10 +59,8 @@ trait MappingBasedIO[T] extends SingleCharIO[T] {
 
 object IO {
 
-  def read[T](lines: Seq[String])(implicit io: IO[T]): Try[T] = io.read(lines)
+  def read[T](input: Input)(implicit io: IO[T]): Try[T] = io.readLines(input.lines)
 
-  def read[T](line: String)(implicit io: IO[T]): Try[T] = read(Seq(line))(io)
-
-  def write[T](t: T)(implicit io: IO[T]): Try[Seq[String]] = io.write(t)
+  def write[T](t: T)(implicit io: IO[T]): Try[Output] = io.writeLines(t).map(fromSeq(_))
 
 }

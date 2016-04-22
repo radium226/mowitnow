@@ -16,7 +16,7 @@ class XebiaSpec extends BaseSpec {
           |GAGAGAGAA
           |3 3 E
           |AADAADADDA
-        """.stripMargin.trim.split("\n")
+        """.stripMargin
 
       When("The mower mow")
       val tryOutputLines = for {
@@ -26,10 +26,10 @@ class XebiaSpec extends BaseSpec {
       } yield outputLines
 
       Then("The output should be the same as Xebia's")
-      tryOutputLines shouldEqual Success(
+      tryOutputLines shouldEqual Success[Output](
         """1 3 N
           |5 1 E
-        """.stripMargin.trim.split("\n").toSeq
+        """.stripMargin.trim
       )
     }
   }

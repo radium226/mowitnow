@@ -43,7 +43,7 @@ class ReadSpec extends BaseSpec {
           |AGD
           |3 4 S
           |A
-        """.stripMargin.trim.split("\n")
+        """.stripMargin
 
       When("the lines are read")
       val sizeAndPrograms = IO.read[(Size, Seq[Program])](lines)
@@ -63,7 +63,7 @@ class ReadSpec extends BaseSpec {
           |AGD
           |3 4 S
           |$
-        """.stripMargin.trim.split("\n")
+        """.stripMargin
 
       When("the lines are read")
       val sizeAndPrograms = IO.read[(Size, Seq[Program])](lines)
