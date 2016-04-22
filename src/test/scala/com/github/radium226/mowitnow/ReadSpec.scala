@@ -30,22 +30,45 @@ class ReadSpec extends BaseSpec {
       val size = IO.read[Size](line)
 
       Then("the size sould be a failure")
-      size shouldBe a [Failure[_]]
+      size shouldBe a[Failure[_]]
     }
   }
 
-  scenario("A program can be read from multiple lines") {
-    Given("some valid lines")
-    val lines =
-      """1 2 N
-        |AGD
-      """.stripMargin.trim.split("\n")
+  feature("All case classes can be read from text") {
+    scenario("Size and programs can be read") {
+      Given("some lines")
+      val lines =
+        """1 2 N
+          |AGD
+          |3 4 S
+          |A
+        """.stripMargin.trim.split("\n")
 
-    When("the lines are read")
-    val program = IO.read[Program](lines)
+      When("the lines are read")
+      val sizeAndPrograms = IO.read[(Size, Seq[Program])](lines)
 
-    Then("the program should be a success corresponding to the lines")
-    program shouldEqual Success(Program(State(Position(1, 2), North()), Seq(MoveForward(), TurnLeft(), TurnRight())))
+      Then("it should be a success and the size and the programs should be consistent with the given lines")
+      val size = Size(2, 2)
+      val firstProgram = Program(State(Position(1, 2), North()), Seq(MoveForward(), TurnLeft(), TurnRight()))
+      val secondProgram = Program(State(Position(3, 4), South()), Seq(MoveForward()))
+      sizeAndPrograms shouldEqual Success((size, Seq(firstProgram, secondProgram)))
+    }
+
+    scenario("Everything should fail even if some lines are valid in text") {
+      Given("some lines")
+      val lines =
+        """1 2 N
+          |AGD
+          |3 4 S
+          |$
+        """.stripMargin.trim.split("\n")
+
+      When("the lines are read")
+      val sizeAndPrograms = IO.read[(Size, Seq[Program])](lines)
+
+      Then("it should be a failure")
+      sizeAndPrograms shouldBe a[Failure[_]]
+    }
   }
 
 }
