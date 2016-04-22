@@ -10,19 +10,6 @@ object Implicits {
 
   }
 
-  implicit class SeqTryToTrySeq[T](seq: Seq[Try[T]]) {
-
-    def toTrySeq(): Try[Seq[T]] = {
-      seq.foldLeft[Try[Seq[T]]](Success(Seq())) { (trySeq, tryItem) =>
-        for {
-          seq <- trySeq
-          item <- tryItem
-        } yield seq :+ item
-      }
-    }
-
-  }
-
   implicit class SeqTrySeqToTrySeq[T](seq: Seq[Try[Seq[T]]]) {
 
     def toTrySeq(): Try[Seq[T]] = {
