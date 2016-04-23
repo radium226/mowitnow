@@ -20,11 +20,11 @@ class WriteSpec extends BaseSpec {
       val lines = IO.write[(Size, Seq[Program])](sizeAndPrograms)
 
       Then("lines should be consistent")
-      lines shouldEqual Success(Seq(
+      lines shouldEqual Success(fromSeq(Seq(
         "1 1",
         "1 1 N",
         "AGD"
-      ))
+      )))
     }
 
   }
@@ -38,7 +38,7 @@ class WriteSpec extends BaseSpec {
       val lines = IO.write(program)
 
       Then("lines should be consistent")
-      lines shouldEqual Success(Seq("1 1 N", "AG"))
+      lines shouldEqual Success(fromSeq(Seq("1 1 N", "AG")))
     }
   }
 
@@ -51,7 +51,7 @@ class WriteSpec extends BaseSpec {
       val lines = IO.write[Seq[Action]](actions)
 
       Then("lines should be consistent")
-      lines shouldEqual Success(Seq("AD"))
+      lines shouldEqual Success(fromSeq(Seq("AD")))
     }
   }
 
