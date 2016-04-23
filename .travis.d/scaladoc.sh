@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sbt doc
 mkdir -p "gh-pages"
 cp -a "target/scala-2.11/api/" "gh-pages/"
 cd "gh-pages"
