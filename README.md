@@ -19,6 +19,8 @@ You should see:
 5 1 E
 ```
 
+The exit status is `0` if everything goes fine and `1` if not (parsing error, inconsistent state). 
+
 You can enable the debug mode with the `-d` flag, use a file as output using the `-o` option and you can provide a single argument to use a file as input: `java -jar "mowitnow-assembly-1.0.jar" -d -o "output.txt" "input.txt"`
 
 ### API
@@ -38,4 +40,9 @@ mower.mow(initialState)(size) match { # And you mow!
  case Failure(throwable) => println(throwable.getMessage) # Otherwise, you can retreive the cause of the failure 
 }
 ```
-More details in the [Scaladoc](https://radium226.github.io/mowitnow)
+More details in the [Scaladoc](https://radium226.github.io/mowitnow).
+
+## To do
+- [ ] Put the library in the Maven Repository
+- [ ] Define a release process
+- [ ] Replace the badges by the HD ones
