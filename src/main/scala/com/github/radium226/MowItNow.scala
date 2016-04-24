@@ -6,7 +6,6 @@ import mowitnow.io._
 import java.io._
 
 import com.typesafe.scalalogging.LazyLogging
-import org.slf4j.LoggerFactory
 
 import scala.util.{Failure, Success, Try}
 import scopt.OptionParser

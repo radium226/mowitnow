@@ -9,10 +9,24 @@ import com.github.radium226.util._
 
 import scala.reflect.runtime.universe._
 
+/**
+  * The purpose of this trait is to separate the reading and writing model classes from the classes themselves
+  * @tparam T The type of the class to be read / written
+  */
 trait IO[T] {
 
+  /**
+    * Read lines and produce an instance of a model class
+    * @param lines The lines to read
+    * @return An instance of the model class
+    */
   def readLines(lines: Seq[String]): Try[T]
 
+  /**
+    * Write lines from an instance of a model class
+    * @param t The instance of the model class
+    * @return The written lines
+    */
   def writeLines(t: T): Try[Seq[String]]
 
 }
@@ -83,8 +97,18 @@ trait MappingBasedIO[T] extends SingleCharIO[T] {
 
 }
 
+/**
+  * The purpose of this class is to read and write model classes from / to lines
+  */
 object IO extends LazyLogging {
 
+  /**
+    * Read an input to a model class instance
+    * @param input The input to read
+    * @param io A IO instance used to do the actual reading from the lines
+    * @tparam T The type of the model class to be returned
+    * @return An instance of the model class
+    */
   def read[T](input: Input)(implicit io: IO[T]): Try[T] = {
     val lines = input.lines
     io.readLines(lines).map({ t =>
@@ -93,6 +117,13 @@ object IO extends LazyLogging {
     })
   }
 
+  /**
+    * Write a model class instance to an output
+    * @param t The model class instance
+    * @param io An IO instance used to do the actual writing from the lines
+    * @tparam T The type of the model class to be written
+    * @return An instance of the model class
+    */
   def write[T](t: T)(implicit io: IO[T]): Try[Output] = {
     io.writeLines(t).map({ lines =>
       logger.debug(s"Writing ${t} as {line}")

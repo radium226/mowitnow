@@ -4,14 +4,26 @@ import java.lang.Math.{max, min}
 
 import scala.util.{Failure, Success, Try}
 
+/**
+  * It models every action the mower can do
+  */
 sealed trait Action {
 
+  /**
+    * Given a state, apply the current action and return the next state
+    * @param state The current state
+    * @param size The size of lawn
+    * @return The next state
+    */
   def apply(state: State)(size: Size): Try[State]
 
 }
 
 object Action {
 
+  /**
+    * Make the mower move forward (the state does not change if the mower is at the edge of the lawn)
+    */
   case class MoveForward() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = {
@@ -28,18 +40,27 @@ object Action {
 
   }
 
+  /**
+    * Turn the mower to the left
+    */
   case class TurnLeft() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = Success(State(state.position, state.orientation.left))
 
   }
 
+  /**
+    * Turn the mower to the right
+    */
   case class TurnRight() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = Success(State(state.position, state.orientation.right))
 
   }
 
+  /**
+    * A special action used to check if the state is consistent (the position should be inside the lawn boudaries)
+    */
   case class CheckState() extends Action {
 
     def apply(state: State)(size: Size): Try[State] = (state, size) match {
@@ -49,6 +70,9 @@ object Action {
 
   }
 
+  /**
+    * A special action used to ensure that the size of the lawn is consistent
+    */
   case class CheckSize() extends Action {
 
     def apply(state: State)(size: Size): Try[State]  = size match {
