@@ -8,12 +8,16 @@ import com.github.radium226.mowitnow.Action.{MoveForward, TurnLeft, TurnRight}
 import scala.util.matching.Regex
 import scala.util.{Failure, Success, Try}
 
+import scala.reflect.runtime.universe._
+
 /**
   * Created by adrien on 4/22/16.
   */
 package object io {
 
   implicit val actionIO: IO[Action] = new MappingBasedIO[Action] {
+
+    override val tt: TypeTag[Action]  = typeTag[Action]
 
     val Mapping = Map(
       'A' -> MoveForward(),
@@ -24,6 +28,8 @@ package object io {
   }
 
   implicit val actionsIO: IO[Seq[Action]] = new SingleLineIO[Seq[Action]] {
+
+    override val tt: TypeTag[Seq[Action]]  = typeTag[Seq[Action]]
 
     override def readLine(line: String): Try[Seq[Action]] = {
       line.sliding(1).map { IO.read[Action](_) }.foldLeft[Try[Seq[Action]]](Success(Seq())) { (tryActions, tryAction) =>
@@ -48,6 +54,8 @@ package object io {
 
   implicit val orientationIO: IO[Orientation] = new MappingBasedIO[Orientation] {
 
+    override val tt: TypeTag[Orientation]  = typeTag[Orientation]
+
     override val Mapping = Map(
       'N' -> Orientation.North(),
       'S' -> Orientation.South(),
@@ -58,6 +66,8 @@ package object io {
   }
 
   implicit val sizeIO: IO[Size] = new SingleLineIO[Size] {
+
+    override val tt: TypeTag[Size]  = typeTag[Size]
 
     val Pattern: Regex  = "([0-9]+) ([0-9]+)".r
 
@@ -73,6 +83,8 @@ package object io {
 
   implicit val positionIO: IO[Position] = new SingleLineIO[Position] {
 
+    override val tt: TypeTag[Position]  = typeTag[Position]
+
     val Pattern: Regex  = "([0-9]+) ([0-9]+)".r
 
     override def readLine(line: String): Try[Position] = line match {
@@ -85,6 +97,8 @@ package object io {
   }
 
   implicit val stateIO: IO[State] = new SingleLineIO[State] {
+
+    override val tt: TypeTag[State]  = typeTag[State]
 
     val Pattern: Regex = "([0-9 ]+) ([A-Z])".r
 

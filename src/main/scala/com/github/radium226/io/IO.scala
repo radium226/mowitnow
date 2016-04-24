@@ -1,7 +1,13 @@
 package com.github.radium226.io
 
-import scala.util.{ Try }
+import scala.util.Try
+
 import com.github.radium226.util.Implicits._
+import com.typesafe.scalalogging.LazyLogging
+
+import com.github.radium226.util._
+
+import scala.reflect.runtime.universe._
 
 trait IO[T] {
 
@@ -11,14 +17,20 @@ trait IO[T] {
 
 }
 
-trait SingleLineIO[T] extends IO[T] {
+trait SingleLineIO[T] extends IO[T] with LazyLogging {
+
+  val tt: TypeTag[T]
+
+  def exceptionForReadLinesFailure(lines: Seq[String]) = {
+    val message = s"Unable to read ${typeTagToString(tt)} from line ${lines.headOption.getOrElse("")}"
+    new Exception(message)
+  }
 
   def readLines(lines: Seq[String]): Try[T] = {
-    val t: Option[T] = for {
-      firstLine <- lines.headOption
-      t <- readLine(firstLine).toOption
+    for {
+      firstLine <- lines.headOption.toTry(new Exception(s"There is no line to read ${typeTagToString(tt)}"))
+      t <- readLine(firstLine)
     } yield t
-    t.toTry(new Exception("Unable to parse single line"))
   }
 
   def readLine(line: String): Try[T]
@@ -31,12 +43,16 @@ trait SingleLineIO[T] extends IO[T] {
 
 trait SingleCharIO[T] extends SingleLineIO[T] {
 
+  def exceptionForReadLineFailure(line: String)  = {
+    val message = s"Unable to read ${typeTagToString(tt)} from char ${line.headOption.getOrElse("")}"
+    new Exception(message)
+  }
+
   def readLine(line: String): Try[T] = {
-    val t: Option[T] = for {
-      firstChar <- line.headOption
-      t <- readChar(firstChar).toOption
+    for {
+      firstChar <- line.headOption.toTry(new Exception(s"There no char to read ${typeTagToString(tt)}"))
+      t <- readChar(firstChar)
     } yield t
-    t.toTry(new Exception("Unable to parse single character"))
   }
 
   def readChar(char: Char): Try[T]
@@ -49,18 +65,39 @@ trait SingleCharIO[T] extends SingleLineIO[T] {
 
 trait MappingBasedIO[T] extends SingleCharIO[T] {
 
+  def exceptionForReadCharFailure(char: Char) = {
+    val message = s"Unable to read ${typeTagToString(tt)} from char ${char}"
+    new Exception(message)
+  }
+
+  def exceptionForWriteCharFailure(t: T) = {
+    val message = s"Unable to write char from ${t}"
+    new Exception(message)
+  }
+
   val Mapping: Map[Char, T]
 
-  def readChar(char: Char): Try[T] = Mapping.get(char).toTry(new Exception("Unable to parse using mapping"))
+  def readChar(char: Char): Try[T] = Mapping.get(char).toTry(exceptionForReadCharFailure(char))
 
-  def writeChar(t: T): Try[Char] = Mapping.map(_.swap).get(t).toTry(new Exception("Unable to write char"))
+  def writeChar(t: T): Try[Char] = Mapping.map(_.swap).get(t).toTry(exceptionForWriteCharFailure(t))
 
 }
 
-object IO {
+object IO extends LazyLogging {
 
-  def read[T](input: Input)(implicit io: IO[T]): Try[T] = io.readLines(input.lines)
+  def read[T](input: Input)(implicit io: IO[T]): Try[T] = {
+    val lines = input.lines
+    io.readLines(lines).map({ t =>
+      logger.debug(s"Reading ${lines} as ${t}")
+      t
+    })
+  }
 
-  def write[T](t: T)(implicit io: IO[T]): Try[Output] = io.writeLines(t).map(fromSeq(_))
+  def write[T](t: T)(implicit io: IO[T]): Try[Output] = {
+    io.writeLines(t).map({ lines =>
+      logger.debug(s"Writing ${t} as {line}")
+      fromSeq(lines)
+    })
+  }
 
 }

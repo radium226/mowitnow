@@ -12,7 +12,7 @@ package object io {
 
     override def equals(any: Any): Boolean = {
       any match {
-        case that:LinesWrapper => that.lines.equals(lines)
+        case that: LinesWrapper => that.lines.equals(lines)
       }
     }
 
