@@ -31,13 +31,13 @@ import com.github.radium226.mowitnow.Action._
 import com.github.radium226.mowitnow.Orientation._
 import com.github.radium226.mowitnow.Direction._
 
-val actions = Seq(TurnLeft(), MoveForward(), TurnRight(), MoveForward()) # You define the actions the mower should follow
-val mower = new Mower(actions) # You instanciate the mower
-val initialState = State(Position(0, 0), North()) # You should define an initial state
-val size = Size(10, 10) # And the size of the lawn
-mower.mow(initialState)(size) match { # And you mow! 
- case Success(finalState) => println(finalState) # # If it's okay, you retreive an instance of State
- case Failure(throwable) => println(throwable.getMessage) # Otherwise, you can retreive the cause of the failure 
+val actions = Seq(TurnLeft(), MoveForward(), TurnRight(), MoveForward()) // You define the actions the mower should follow
+val mower = new Mower(actions) // You instanciate the mower
+val initialState = State(Position(0, 0), North()) // You should define an initial state
+val size = Size(10, 10) // And the size of the lawn
+mower.mow(initialState)(size) match { // And you mow! 
+ case Success(finalState) => println(finalState) // If it's okay, you retreive an instance of State
+ case Failure(throwable) => println(throwable.getMessage) // Otherwise, you can retreive the cause of the failure 
 }
 ```
 More details in the [Scaladoc](https://radium226.github.io/mowitnow).
