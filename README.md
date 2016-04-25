@@ -25,7 +25,7 @@ You can enable the debug mode with the `-d` flag, use a file as output using the
 
 ### API
 You can use the mower programatically:
-```
+```scala
 import com.github.radium226.mowitnow._
 import com.github.radium226.mowitnow.Action._
 import com.github.radium226.mowitnow.Orientation._
