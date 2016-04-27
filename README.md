@@ -46,3 +46,4 @@ More details in the [Scaladoc](https://radium226.github.io/mowitnow).
 - [ ] Put the library in the Maven Repository
 - [ ] Define a release process
 - [ ] Replace the badges by the HD ones
+- [ ] Use Scala's [parser combinators](https://wiki.scala-lang.org/display/SW/Parser+Combinators--Getting+Started) instead of `IO`
