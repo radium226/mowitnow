@@ -1,0 +1,338 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>mowitnow - com.github.radium226.mowitnow</title>
+          <meta name="description" content="mowitnow - com.github.radium226.mowitnow" />
+          <meta name="keywords" content="mowitnow com.github.radium226.mowitnow" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.github.radium226.mowitnow.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.github">github</a>.<a href="../package.html" class="extype" name="com.github.radium226">radium226</a></p>
+        <h1>mowitnow</h1><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mowitnow</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="com.github.radium226.mowitnow"><span>mowitnow</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.github.radium226.mowitnow.Action" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ActionextendsAnyRef"></a>
+      <a id="Action:Action"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Action.html"><span class="name">Action</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@ActionextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It models every action the mower can do
+</p>
+    </li><li name="com.github.radium226.mowitnow.Direction" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="DirectionextendsAnyRef"></a>
+      <a id="Direction:Direction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Direction.html"><span class="name">Direction</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@DirectionextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It models a direction where to turn
+</p>
+    </li><li name="com.github.radium226.mowitnow.Mower" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MowerextendsAnyRef"></a>
+      <a id="Mower:Mower"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Mower.html"><span class="name">Mower</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@MowerextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The purpose of this class is to mow.</p>
+    </li><li name="com.github.radium226.mowitnow.Orientation" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="OrientationextendsAnyRef"></a>
+      <a id="Orientation:Orientation"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Orientation.html"><span class="name">Orientation</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@OrientationextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It models an orientation
+</p>
+    </li><li name="com.github.radium226.mowitnow.Position" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="PositionextendsProductwithSerializable"></a>
+      <a id="Position:Position"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="package$$Position.html"><span class="name">Position</span></a><span class="params">(<span name="x">x: <span class="extype" name="scala.Int">Int</span></span>, <span name="y">y: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@PositionextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It models position</p><div class="fullcomment"><div class="comment cmt"><p>It models position</p></div><dl class="paramcmts block"><dt class="param">x</dt><dd class="cmt"><p>The X-axis coordinate</p></dd><dt class="param">y</dt><dd class="cmt"><p>The Y-axis coordinate</p></dd></dl></div>
+    </li><li name="com.github.radium226.mowitnow.Program" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ProgramextendsProductwithSerializable"></a>
+      <a id="Program:Program"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="package$$Program.html"><span class="name">Program</span></a><span class="params">(<span name="initialState">initialState: <a href="package$$State.html" class="extype" name="com.github.radium226.mowitnow.State">State</a></span>, <span name="actions">actions: <span class="extype" name="scala.Seq">Seq</span>[<a href="Action.html" class="extype" name="com.github.radium226.mowitnow.Action">Action</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@ProgramextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The program the mower should follow</p><div class="fullcomment"><div class="comment cmt"><p>The program the mower should follow</p></div><dl class="paramcmts block"><dt class="param">initialState</dt><dd class="cmt"><p>The initial state</p></dd><dt class="param">actions</dt><dd class="cmt"><p>Multiple actions</p></dd></dl></div>
+    </li><li name="com.github.radium226.mowitnow.Size" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SizeextendsProductwithSerializable"></a>
+      <a id="Size:Size"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="package$$Size.html"><span class="name">Size</span></a><span class="params">(<span name="width">width: <span class="extype" name="scala.Int">Int</span></span>, <span name="height">height: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@SizeextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It models the size of the lawn</p><div class="fullcomment"><div class="comment cmt"><p>It models the size of the lawn</p></div><dl class="paramcmts block"><dt class="param">width</dt><dd class="cmt"><p>The width of the lawn boundaries</p></dd><dt class="param">height</dt><dd class="cmt"><p>The height of the lawn boundaries</p></dd></dl></div>
+    </li><li name="com.github.radium226.mowitnow.State" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="StateextendsProductwithSerializable"></a>
+      <a id="State:State"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="package$$State.html"><span class="name">State</span></a><span class="params">(<span name="position">position: <a href="package$$Position.html" class="extype" name="com.github.radium226.mowitnow.Position">Position</a></span>, <span name="orientation">orientation: <a href="Orientation.html" class="extype" name="com.github.radium226.mowitnow.Orientation">Orientation</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@StateextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The state of the mower</p><div class="fullcomment"><div class="comment cmt"><p>The state of the mower</p></div><dl class="paramcmts block"><dt class="param">position</dt><dd class="cmt"><p>The position of the mower</p></dd><dt class="param">orientation</dt><dd class="cmt"><p>The orientation of the mower</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.github.radium226.mowitnow.Action" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Action"></a>
+      <a id="Action:Action"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Action$.html"><span class="name">Action</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@Action" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.github.radium226.mowitnow.Direction" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Direction"></a>
+      <a id="Direction:Direction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Direction$.html"><span class="name">Direction</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@Direction" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.github.radium226.mowitnow.Mower" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Mower"></a>
+      <a id="Mower:Mower"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Mower$.html"><span class="name">Mower</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@Mower" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Using this companion object is shortcut to mow with multiple mowers
+</p>
+    </li><li name="com.github.radium226.mowitnow.Orientation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Orientation"></a>
+      <a id="Orientation:Orientation"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Orientation$.html"><span class="name">Orientation</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.github.radium226.mowitnow.package@Orientation" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
